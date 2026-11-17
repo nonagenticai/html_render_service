@@ -1,0 +1,10 @@
+{
+  "name": "html-render-asset-build",
+  "private": true,
+  "description": "Ephemeral build tooling to vendor pinned OSS assets for assembly mode. node_modules is gitignored; only the built assets under src/static/vendor are committed.",
+  "devDependencies": {
+    "@tailwindcss/cli": "4.3.2",
+    "tailwindcss": "4.3.2",
+    "daisyui": "5.6.6"
+  }
+}

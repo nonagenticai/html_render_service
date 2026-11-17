@@ -1,0 +1,74 @@
+Design a brand-new {{ page_type or 'landing' }} page FROM SCRATCH that matches the brief
+below. There is no existing site — invent coherent, on-brief content and a
+production-quality layout.
+
+Output a SINGLE self-contained HTML file. Declare the colours, fonts and scale as CSS
+custom properties in ONE `:root` block inside a `<style>` tag, then style everything with
+hand-written CSS against those tokens. Do NOT use Tailwind or any utility-class framework
+or CDN.
+
+## Brand token block to emit
+```html
+<style>
+:root{
+  --color-brand: {{ primary_color or '<choose an on-brief primary>' }};
+  --color-accent: {{ secondary_color or '<a complementary accent>' }};
+  --color-ink: <dominant text colour>;
+  --color-surface: <page background>;
+  --font-display: "{{ display_font or '<heading font>' }}", Georgia, serif;
+  --font-body: "{{ body_font or '<body font>' }}", system-ui, sans-serif;
+  --step-0: clamp(1rem,.95rem+.3vw,1.125rem); --step-1: clamp(1.25rem,1.1rem+.6vw,1.5rem);
+  --step-2: clamp(1.6rem,1.3rem+1.2vw,2.1rem); --step-3: clamp(2.2rem,1.6rem+2.4vw,3.3rem);
+  --step-4: clamp(3rem,2rem+4vw,5rem);
+  --space-xs:.5rem; --space-sm:1rem; --space-md:2rem; --space-lg:4rem; --space-xl:8rem;
+  --radius-sm:.375rem; --radius-md:.75rem; --radius-lg:1.5rem; --maxw:72rem;
+}
+body{font-family:var(--font-body);color:var(--color-ink);background:var(--color-surface)}
+h1,h2,h3{font-family:var(--font-display)}
+</style>
+```
+
+## Brief
+- Audience: {{ audience }}
+- Tone: {{ tone }}
+{% if palette_known %}- Palette: primary={{ primary_color }}, secondary={{ secondary_color }} (use as --color-brand / --color-accent)
+{% else %}- Palette: choose an on-brief palette that fits the tone — NOT a generic blue/white SaaS default
+{% endif %}
+{{ font_directive }}
+{% if context_block %}
+
+## What to build
+{{ context_block }}
+{% endif %}
+
+## Design Direction: {{ style }}
+{{ style_desc }}
+
+## Requirements
+1. Self-contained HTML: one `:root` token block + hand-written CSS. NO Tailwind, NO CDN.
+2. Author real, on-brief copy for every section — headlines, subheads, body, CTAs, nav, footer.
+3. Use placeholder images (`https://placehold.co/{w}x{h}/{bg}/{fg}?text=…`) tinted to the
+   palette, each with descriptive `alt` — ONLY as discrete inline content (e.g. product/
+   feature/gallery cards), never as a background behind live text.
+4. Hero & section BACKGROUNDS: use a solid brand colour or a subtle palette gradient — NEVER
+   a placehold.co (or any text-baked) image behind a headline/CTA. Baked-in placeholder text
+   shows through and collides with the real copy. Headline text sits on a plain coloured band.
+5. Strong visual hierarchy, generous whitespace, typographic rhythm, responsiveness, a11y.
+6. Include `<!DOCTYPE html>`, `<html lang="en">`, and the viewport meta.
+
+## Responsive Design Rules
+- Mobile-first hand-written CSS with `@media (min-width: …)` breakpoints (e.g. 640/768/1024px)
+- Stack columns on mobile; use CSS grid/flex on larger screens
+- Touch targets ≥ 44×44px; no horizontal scrollbar at any width
+
+## Semantic HTML Requirements
+- A single `<h1>`, then `<h2>`/`<h3>` in order without skipping levels
+- Landmarks: `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`
+- `<button>` for actions, `<a>` for navigation; never a clickable `<div>`/`<span>`
+- Associate every form input with a `<label>`; use `<ul>`/`<ol>` for lists
+
+## Accessibility Requirements
+- Meaningful `alt` on every `<img>` (`alt=""` only for purely decorative)
+- WCAG AA contrast (≥ 4.5:1 normal text, ≥ 3:1 large); visible `:focus-visible` styles
+
+Output ONLY the HTML code in a ```html code block.

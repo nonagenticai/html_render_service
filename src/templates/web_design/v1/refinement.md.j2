@@ -1,0 +1,39 @@
+Refine the following redesign based on user feedback.
+Apply the requested changes while preserving the overall design direction.
+
+## Previous Redesign
+- Original page: {{ url }}
+- Page type: {{ page_type or 'unknown' }}
+- Design direction: {{ style }}
+{% if primary_color %}- Brand primary colour: {{ primary_color }}{% endif %}
+
+### Current HTML
+```html
+{{ html_excerpt }}
+```
+
+## User Feedback
+{{ feedback }}
+
+{% if focus_areas %}
+## Focus Areas
+The user wants you to concentrate on the following areas:
+{% for area in focus_areas %}
+- {{ area }}
+{% endfor %}
+{% endif %}
+
+## Style Description
+{{ style_desc }}
+
+## Requirements
+1. Apply the changes described in the user feedback above
+2. Keep the existing design direction ({{ style }}) intact unless the feedback explicitly asks to change it
+3. Output a single self-contained HTML file. Keep the page's existing CSS approach
+   (brand-token CSS) — do NOT introduce Tailwind or any utility-class framework or CDN
+4. Preserve all original content and image URLs -- do not remove or invent text unless the feedback specifically requests it
+5. Only change what the feedback asks for; leave everything else as-is
+6. Maintain responsiveness and accessibility from the previous version
+7. Include `<!DOCTYPE html>` and `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+
+Output ONLY the refined HTML in a ```html code block.

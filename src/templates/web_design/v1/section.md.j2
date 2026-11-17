@@ -1,0 +1,53 @@
+Refine the "{{ section_type }}" section of this web page.
+This is a REFINEMENT of an existing brand, not a re-theme. Keep the section's real content,
+colours, type and imagery — it must read as the same brand. Do NOT introduce a generic
+blue/white or any palette not already present.
+
+Output a single HTML `<section>` SNIPPET styled with hand-written CSS (in ONE `<style>`
+element inside the section) that references the page's shared brand tokens
+(`var(--color-brand)`, `var(--color-accent)`, `var(--font-display)`, `var(--font-body)`,
+`var(--step-2)`, `var(--space-md)`, `var(--radius-md)`, …). Do NOT use Tailwind or any utility
+framework. Do NOT declare your own `:root`, `@font-face` or `<link>` fonts — the page already
+supplies the token block and fonts. Do NOT invent content.
+{% if section_markup %}
+## Original section markup
+{% if truncation_note %}{{ truncation_note }}
+{% endif %}```html
+{{ section_markup }}
+```
+{% endif %}
+## Context
+- Page: {{ url }} ({{ page_type or 'unknown' }})
+- Section: {{ section_type }}
+- Current heading: {{ heading }}
+- Current content preview: {{ text_preview }}
+- Audience: {{ audience }}
+{% if palette_known %}- Brand colours: primary={{ primary_color }}, secondary={{ secondary_color }} (available as var(--color-brand) / var(--color-accent))
+{% else %}- Brand colours: derive the real colours from the markup above (use var(--color-brand) / var(--color-accent)) — do NOT introduce a new palette or any blue.
+{% endif %}- Issues: {{ findings_text }}
+
+{{ image_manifest_block }}
+
+## Design Direction: {{ style }}
+{{ style_desc }}
+
+{{ css_contract_block }}
+
+## Section guidance
+- Lay out ALL of the ACTUAL content of THIS section. Do NOT add claims, badges, ratings, prices,
+  star reviews, testimonials, logos or counts that are not already present in the markup.
+- Give the section clear visual hierarchy (a heading + its supporting content), spacing and
+  alignment consistent with the rest of the page, using the shared brand tokens.
+- If the section has images, keep them and lay them out deliberately; never blank a real image.
+
+## Requirements
+1. Output a single `<section>` element using brand-token CSS (no Tailwind, no utility classes)
+2. Preserve the actual content (don't invent text or claims)
+3. Preserve brand identity; improve execution (hierarchy, whitespace, contrast, a11y)
+4. Reference the shared tokens for colours/fonts/spacing — do not redefine them
+5. Reuse the exact absolute image URLs listed above; placeholder only for a genuinely
+   missing/broken image, tinted to the brand
+6. Mobile-first responsive with `@media (min-width: …)`; semantic HTML; accessible
+   (`alt` text, `aria-label`s, sufficient colour contrast)
+
+Output ONLY the HTML in a ```html code block.

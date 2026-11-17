@@ -1,0 +1,15 @@
+<header{% if section_id %} id="{{ section_id }}"{% endif %} class="navbar bg-base-100 border-b border-base-200 px-4 md:px-8 sticky top-0 z-30">
+  <div class="flex-1">
+    <a href="#{{ section_id or 'top' }}" class="btn btn-ghost text-xl font-bold" data-brand>{{ block.brand }}</a>
+  </div>
+  <nav class="flex-none hidden md:block">
+    <ul class="menu menu-horizontal px-1 gap-1">
+      {% for link in block.links %}
+      <li><a href="{{ link.href | safe_url }}">{{ link.label }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  <div class="flex-none ml-2">
+    <a href="{{ block.cta_href | safe_url }}" class="btn btn-primary">{{ block.cta_label }}</a>
+  </div>
+</header>

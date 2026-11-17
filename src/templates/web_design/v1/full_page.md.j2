@@ -1,0 +1,96 @@
+Refine the following web page. This is a REFINEMENT of an existing brand, not a re-theme.
+Read the real colour palette, type pairing, logo and imagery from the Current HTML below
+and KEEP them — the result must be instantly recognisable as the same brand (same colours,
+same fonts, same logo, same images). Improve only layout, hierarchy, spacing, typographic
+rhythm, responsiveness and accessibility.
+
+Output a SINGLE self-contained HTML file. Declare the brand's colours, fonts and scale as
+CSS custom properties in ONE `:root` block inside a `<style>` tag, then style everything
+with hand-written CSS against those tokens. Do NOT use Tailwind or any utility-class
+framework or CDN. Do NOT use system-ui as the brand font. Do NOT invent content.
+
+## Brand token block to emit (fill with the REAL brand values)
+```html
+<style>
+:root{
+  --color-brand: <real primary>;   /* the real brand colour, never a generic blue */
+  --color-accent: <real secondary>;
+  --color-ink: <dominant text colour>;
+  --color-surface: <page background>;
+  --font-display: "<heading font>", Georgia, serif;
+  --font-body: "<body font>", system-ui, sans-serif;
+  --step-0: clamp(1rem,.95rem+.3vw,1.125rem); --step-1: clamp(1.25rem,1.1rem+.6vw,1.5rem);
+  --step-2: clamp(1.6rem,1.3rem+1.2vw,2.1rem); --step-3: clamp(2.2rem,1.6rem+2.4vw,3.3rem);
+  --step-4: clamp(3rem,2rem+4vw,5rem);
+  --space-xs:.5rem; --space-sm:1rem; --space-md:2rem; --space-lg:4rem; --space-xl:8rem;
+  --radius-sm:.375rem; --radius-md:.75rem; --radius-lg:1.5rem; --maxw:72rem;
+}
+body{font-family:var(--font-body);color:var(--color-ink);background:var(--color-surface)}
+h1,h2,h3{font-family:var(--font-display)}
+</style>
+```
+
+## Original Page
+- URL: {{ url }}
+- Page type: {{ page_type or 'unknown' }}
+- Current HTML:
+{{ html_excerpt }}
+
+## Site Context
+- Audience: {{ audience }}
+{% if palette_known %}- Brand colours: primary={{ primary_color }}, secondary={{ secondary_color }} (declare as --color-brand / --color-accent)
+{% else %}- Brand colours: derive them from the Current HTML above and declare as --color-brand / --color-accent — do NOT introduce a new palette or any blue.
+{% endif %}- Tone: {{ tone }}
+
+{{ font_directive }}
+
+{{ image_manifest_block }}
+{% if context_block %}
+
+## User Context
+{{ context_block }}
+{% endif %}
+
+## Issues to Address
+{{ findings_text }}
+
+## Design Direction: {{ style }}
+{{ style_desc }}
+
+## Requirements
+1. Self-contained HTML: one `:root` token block + hand-written CSS. NO Tailwind, NO CDN.
+2. Preserve the site's actual content, links and data — invent nothing (no fake social
+   proof, testimonials, ratings, counts or urgency)
+3. Preserve the brand identity — keep the real colours, fonts and logo
+4. Improve: visual hierarchy, whitespace, typographic rhythm, responsiveness, accessibility
+5. Address the critique findings above
+6. Include `<!DOCTYPE html>`, `<html lang="en">`, and the viewport meta
+7. Wrap each visual band (header, hero, every content block, footer) in its own
+   full-width `<section data-section="<slug>">` (slug from its heading, e.g.
+   `data-section="more-information"`); put the max-width container INSIDE it, never
+   around several bands
+
+## Responsive Design Rules
+- Mobile-first hand-written CSS with `@media (min-width: …)` breakpoints (e.g. 640/768/1024px)
+- Stack columns on mobile; use CSS grid/flex on larger screens
+- Touch targets ≥ 44×44px; no horizontal scrollbar at any width
+
+## Semantic HTML Requirements
+- A single `<h1>`, then `<h2>`/`<h3>` in order without skipping levels
+- Landmarks: `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`
+- `<button>` for actions, `<a>` for navigation; never a clickable `<div>`/`<span>`
+- Associate every form input with a `<label>`; use `<ul>`/`<ol>` for lists
+
+## Image Conventions
+- Reuse the EXACT absolute image URLs listed above — the brand's real imagery must survive
+- Only when an image is genuinely missing, use `https://placehold.co/{w}x{h}/{bg}/{fg}?text={label}`
+  tinted to the brand (not generic grey)
+- Always include descriptive `alt` text; use `loading="lazy"` on below-the-fold images
+
+## Accessibility Requirements
+- Meaningful `alt` on every `<img>` (`alt=""` only for purely decorative)
+- `aria-label`/`aria-labelledby` on interactive elements lacking visible text
+- WCAG AA contrast (≥ 4.5:1 normal text, ≥ 3:1 large); visible `:focus-visible` styles
+- `role` attributes only where semantic HTML is insufficient
+
+Output ONLY the HTML code in a ```html code block.

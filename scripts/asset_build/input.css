@@ -1,0 +1,6 @@
+@import "tailwindcss" source(none);
+@plugin "daisyui" {
+  themes: corporate --default, business, light, dark;
+}
+/* Scan the assembly block partials + page shell for used utility/component classes. */
+@source "../../src/templates/web_design/v2";

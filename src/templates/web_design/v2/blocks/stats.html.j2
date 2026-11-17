@@ -1,0 +1,10 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="py-14 px-4 bg-base-200">
+  <div class="max-w-5xl mx-auto grid gap-8 grid-cols-2 md:grid-cols-4 text-center">
+    {% for item in block['items'] %}
+    <div>
+      <div class="text-4xl md:text-5xl font-extrabold text-brand">{{ item.value }}</div>
+      <div class="mt-2 text-base-content/70">{{ item.label }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>

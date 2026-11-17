@@ -1,0 +1,13 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="py-16 md:py-24 px-4 bg-base-100">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">{{ block.headline }}</h2>
+    <div class="join join-vertical w-full">
+      {% for item in block['items'] %}
+      <details class="collapse collapse-arrow join-item border border-base-300">
+        <summary class="collapse-title text-lg font-medium">{{ item.question }}</summary>
+        <div class="collapse-content"><p class="text-base-content/70">{{ item.answer }}</p></div>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>

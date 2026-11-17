@@ -1,0 +1,19 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="py-16 md:py-24 px-4 bg-base-100">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold">{{ block.headline }}</h2>
+      {% if block.subheading %}<p class="mt-4 text-lg text-base-content/70">{{ block.subheading }}</p>{% endif %}
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for item in block['items'] %}
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body">
+          {% if item.icon %}<div class="mb-2 text-primary" aria-hidden="true">{{ item.icon | icon }}</div>{% endif %}
+          <h3 class="card-title">{{ item.title }}</h3>
+          <p class="text-base-content/70">{{ item.body }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

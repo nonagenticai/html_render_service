@@ -1,0 +1,18 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="py-16 md:py-24 px-4 bg-base-100">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">{{ block.headline }}</h2>
+    <div class="grid gap-6 md:grid-cols-3">
+      {% for item in block['items'] %}
+      <figure class="card bg-base-200 shadow-sm">
+        <div class="card-body">
+          <blockquote class="text-lg leading-relaxed">&ldquo;{{ item.quote }}&rdquo;</blockquote>
+          <figcaption class="mt-4">
+            <div class="font-semibold">{{ item.author }}</div>
+            {% if item.role %}<div class="text-sm text-base-content/70">{{ item.role }}</div>{% endif %}
+          </figcaption>
+        </div>
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>

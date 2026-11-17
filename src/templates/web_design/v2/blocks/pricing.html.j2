@@ -1,0 +1,19 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="py-16 md:py-24 px-4 bg-base-200">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">{{ block.headline }}</h2>
+    <div class="grid gap-6 md:grid-cols-3 items-stretch">
+      {% for item in block['items'] %}
+      <div class="card bg-base-100 shadow-md">
+        <div class="card-body">
+          <h3 class="text-xl font-semibold">{{ item.name }}</h3>
+          <div class="my-4">
+            <span class="text-4xl font-extrabold">{{ item.price }}</span>
+            {% if item.period %}<span class="text-base-content/70">/{{ item.period }}</span>{% endif %}
+          </div>
+          <a href="{{ item.cta_href | safe_url }}" class="btn btn-primary btn-block">{{ item.cta_label or "Choose" }}</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<footer{% if section_id %} id="{{ section_id }}"{% endif %} class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+  <aside>
+    <p class="text-lg font-bold" data-brand>{{ block.brand }}</p>
+    {% if block.tagline %}<p class="max-w-xs text-base-content/70">{{ block.tagline }}</p>{% endif %}
+    {% if block.copyright %}<p class="text-sm text-base-content/70 mt-2">{{ block.copyright }}</p>{% endif %}
+  </aside>
+  {% if block.links %}
+  <nav>
+    <h6 class="font-semibold uppercase text-sm tracking-wide mb-2">Links</h6>
+    {% for link in block.links %}
+    <a href="{{ link.href | safe_url }}" class="link link-hover">{{ link.label }}</a>
+    {% endfor %}
+  </nav>
+  {% endif %}
+</footer>

@@ -1,0 +1,24 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="py-16 md:py-24 px-4 bg-base-200">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold">{{ block.headline }}</h2>
+      {% if block.address %}<p class="mt-4 text-lg text-base-content/70">{{ block.address }}</p>{% endif %}
+    </div>
+    {% if block['items'] %}
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for item in block['items'] %}
+      <div class="card bg-base-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">{{ item.day }}</h3>
+          <p class="text-base-content/70">{{ item.time }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    {# No hours in the brief: say so plainly. Never a placeholder time
+       (integrity.enforce_hours blanks every row the brief does not state). #}
+    <p class="text-center text-lg text-base-content/70" data-hours-on-request>Opening hours on request</p>
+    {% endif %}
+  </div>
+</section>

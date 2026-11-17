@@ -1,0 +1,24 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="hero bg-base-100 py-16 md:py-24 px-4">
+  <div class="hero-content flex-col lg:flex-row-reverse gap-10 max-w-6xl">
+    {% if block.image %}
+    <img src="{{ block.image | safe_img }}" alt="" class="max-w-sm w-full rounded-box shadow-2xl" loading="lazy">
+    {% else %}
+    {# Designed fallback: a decorative brand-colour gradient. Used when hero image
+       generation failed or the assembler dropped an image it cannot vouch for
+       (integrity.enforce_images). Deliberately NO text: a lone brand initial read
+       as a broken placeholder on the live web_design_v2 run. #}
+    <div class="hero-art max-w-sm w-full rounded-box shadow-2xl" aria-hidden="true"></div>
+    {% endif %}
+    <div class="max-w-2xl">
+      {% if block.eyebrow %}<p class="text-brand font-semibold uppercase tracking-wide mb-3">{{ block.eyebrow }}</p>{% endif %}
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">{{ block.headline }}</h1>
+      {% if block.subheading %}<p class="py-6 text-lg text-base-content/70">{{ block.subheading }}</p>{% endif %}
+      <div class="flex flex-wrap gap-3">
+        <a href="{{ block.primary_href | safe_url }}" class="btn btn-primary btn-lg">{{ block.primary_label }}</a>
+        {% if block.secondary_label %}
+        <a href="{{ block.secondary_href | safe_url }}" class="btn btn-ghost btn-lg">{{ block.secondary_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

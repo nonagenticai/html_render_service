@@ -1,0 +1,46 @@
+Design the "{{ section_type }}" section of a BRAND-NEW {{ page_type or 'landing' }} page,
+from the brief below. There is no existing site — invent coherent, on-brief copy and a
+production-quality layout for THIS SECTION ONLY.
+
+Output a single HTML `<section>` SNIPPET styled with hand-written CSS that references the
+page's shared brand tokens (`var(--color-brand)`, `var(--color-accent)`, `var(--font-display)`,
+`var(--font-body)`, `var(--step-2)`, `var(--space-md)`, `var(--radius-md)`, …). Do NOT use
+Tailwind or any utility framework. Put the section's CSS in ONE `<style>` element inside the
+section. Do NOT declare your own `:root`, `@font-face` or `<link>` fonts, and do NOT emit `<!DOCTYPE>`/`<html>`/`<head>`/`<body>` — the page that
+composes your snippet already supplies the token block and the fonts.
+
+## This section
+- Section: {{ section_type }}
+- What it must do: {{ section_brief }}
+{% if section_type == 'hero' %}- This is the ONLY section that may contain the page's single `<h1>`.
+{% else %}- Start from an `<h2>` — the page's `<h1>` belongs to the hero, not here.
+{% endif %}
+
+## Brief
+- Audience: {{ audience }}
+- Tone: {{ tone }}
+{% if palette_known %}- Brand colours: primary={{ primary_color }}, secondary={{ secondary_color }} (use as var(--color-brand) / var(--color-accent))
+{% else %}- Brand colours: use var(--color-brand) / var(--color-accent) — the page picks the palette; do NOT introduce a new one or any generic blue.
+{% endif %}
+{% if context_block %}
+## What to build
+{{ context_block }}
+{% endif %}
+
+## Design Direction: {{ style }}
+{{ style_desc }}
+
+{{ css_contract_block }}
+
+## Requirements
+1. Output ONE `<section>` element using brand-token CSS (no Tailwind, no utility classes)
+2. Author real, on-brief copy — no Lorem ipsum, no "TODO", no fabricated named customers,
+   exact ratings or counts
+3. Reference the shared tokens for colours/fonts/spacing — do not redefine them
+4. Placeholder images (`https://placehold.co/{w}x{h}/{bg}/{fg}?text=…`) only as discrete
+   inline content with descriptive `alt`; never behind a headline or CTA
+5. Mobile-first responsive with `@media (min-width: …)`; semantic HTML; accessible
+   (`alt` text, `aria-label`s, WCAG AA contrast, visible `:focus-visible`)
+6. Touch targets ≥ 44×44px; `<button>` for actions, `<a>` for navigation
+
+Output ONLY the HTML in a ```html code block.

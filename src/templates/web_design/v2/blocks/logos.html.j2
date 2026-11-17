@@ -1,0 +1,14 @@
+<section{% if section_id %} id="{{ section_id }}"{% endif %} class="py-10 px-4 bg-base-200">
+  <div class="max-w-6xl mx-auto text-center">
+    {% if block.title %}<p class="text-sm uppercase tracking-widest text-base-content/70 mb-6">{{ block.title }}</p>{% endif %}
+    <div class="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-70">
+      {% for item in block['items'] %}
+      {% if item.image %}
+      <img src="{{ item.image | safe_img }}" alt="{{ item.name }}" class="h-8 w-auto grayscale" loading="lazy">
+      {% else %}
+      <span class="text-xl font-semibold">{{ item.name }}</span>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

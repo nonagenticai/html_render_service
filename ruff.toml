@@ -1,0 +1,57 @@
+# Ruff config lives here (NOT pyproject.toml) on purpose: this heavy image's
+# Dockerfile does `COPY pyproject.toml uv.lock` before `uv sync`, so ANY edit to
+# pyproject.toml busts the dependency-install cache layer and forces a full
+# (multi-GB) reinstall. Keeping ruff config in ruff.toml leaves pyproject.toml
+# byte-identical to main, so the dep layer cache-hits and the build stays fast.
+# ruff.toml is never COPYed into the image (dev-only). See w2v typing guardrail.
+
+line-length = 100
+target-version = "py314"
+
+[lint]
+select = [
+    "E", "F", "I", "N", "W", "UP", "ANN", "B", "BLE", "A", "S", "C901",
+    "RUF", "RET", "SIM", "ASYNC", "PTH", "TID251",
+]
+ignore = [
+    "E501",
+    "B008",
+    # ASYNC240 (pathlib in async) requires an anyio.Path refactor across the
+    # lifted render/image paths; tracked as a fleet-wide follow-up (matches
+    # analysis_service). Screenshot/diff file writes are not a hotspot.
+    "ASYNC240"
+]
+
+# uuid7 is the id standard (stdlib, py3.14). TID251 bans `uuid4` in production
+# code via ruff — enforced in CI (`ruff check .`), not only local pre-commit.
+[lint.flake8-tidy-imports.banned-api]
+"uuid.uuid4".msg = "uuid7 is the w2v id standard — use uuid.uuid7() (stdlib, py3.14)."
+
+[lint.per-file-ignores]
+"src/database/migrations/*" = ["I001", "ANN"]
+# RLS child-policy DDL is built from trusted module-level constants (the GUC is a
+# fixed SQL expression, never user input) — S608's string-SQL heuristic is a false
+# positive. (The claim resolver in rls_resolvers.py is a plain string, not flagged.)
+"src/database/rls_policies.py" = ["S608"]
+"tests/**/*.py" = ["S101", "S104", "S105", "S106", "S107", "S108", "S608", "ANN", "PTH", "ASYNC230", "ASYNC240", "TID251"]
+
+# ── ANN401 ratchet (see [tool.ruff.lint].ignore note) ─────────────────────────
+# These files still carry `Any` in a function signature. Do NOT add to this list.
+# When you type a file's seam with pydantic models, DELETE its line here — that
+# re-enables ANN401 for the file and locks the win in. Target: empty.
+"src/cache/cache_keys.py" = ["ANN401"]
+"src/services/assembly_planner.py" = ["ANN401"]
+"src/services/browser_pool.py" = ["ANN401"]
+"src/services/catalog/assembler.py" = ["ANN401"]
+"src/services/catalog/registry.py" = ["ANN401"]
+"src/services/context_resolver.py" = ["ANN401"]
+"src/services/design_builder/finalize_phases.py" = ["ANN401"]
+"src/services/design_builder/helpers.py" = ["ANN401"]
+"src/services/design_builder/lifecycle.py" = ["ANN401"]
+"src/services/design_builder/phases.py" = ["ANN401"]
+"src/services/design_builder/service.py" = ["ANN401"]
+"src/services/design_builder/variants.py" = ["ANN401"]
+"src/services/job_worker.py" = ["ANN401"]
+"src/services/screenshot_renderer.py" = ["ANN401"]
+"src/services/verification/verifier.py" = ["ANN401"]
+
