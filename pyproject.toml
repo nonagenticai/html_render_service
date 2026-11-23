@@ -78,7 +78,7 @@ dev = [
     "ruff>=0.15.0",
     # <0.0.85: ty 0.0.85+ flags @(async)contextmanager Iterator annotations and mixin attribute overrides (11 sites).
     # Dev-only type checker, no runtime/pip-audit impact; lift when the code is migrated.
-    "ty>=0.0.23,<0.0.105",
+    "ty>=0.0.23,<0.0.108",
     "pip-audit>=2.10.0",
     # Transitive via pip-audit -> pip-api -> pip. PYSEC-2026-3721 affects
     # pip < 26.2; declared explicitly so a future `uv lock` cannot walk the
